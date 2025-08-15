@@ -5,6 +5,10 @@ using namespace std;
 long long fibonacci[100001];
 
 long long fibo(int x) {
+    if (fibonacci[x] != -1){
+        return fibonacci[x];
+    }
+    
     if (x == 0){
         fibonacci[x] = 0;
         return fibonacci[x];
@@ -17,14 +21,21 @@ long long fibo(int x) {
     return fibonacci[x];
 }
 
+void inicializarvetor(){
+    for (int i = 0; i < 100001; i++){
+        fibonacci[i] = -1;
+    }
+
+}
 
 int main(){
+    inicializarvetor();
     int m;
     cout << "Quantas operações deseja realizar?" << endl;
     cin >> m;
 
     while (m--){
-        cout << "Informe a posição do fibonacci: ";
+        cout << "Valor do fibonacci: ";
         int n;
         cin >> n;
         cout << fibo(n) << endl;
