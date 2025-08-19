@@ -1,5 +1,5 @@
-#include <iostream> // libs entrada/saida C++
-#include <cstdio> // Libs entrada/saida C
+#include <iostream>
+#include <cstdio>
 using namespace std;
 
 long long fatorial[100001];

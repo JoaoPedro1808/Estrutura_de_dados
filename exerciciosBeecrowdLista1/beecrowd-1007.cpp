@@ -11,5 +11,5 @@ int main(){
 
     printf("DIFERENCA = %.0f\n", (a*b - c*d));
 
-    return 0;   
+    return 0;
 }   
