@@ -1,22 +1,40 @@
 #include <iostream>
-#include <cstdio>
-#include <iomanip>
 #include <cmath>
-#include <cctype>
 
 using namespace std;
 
-long long fibonot[100001];
+bool quadradoPerfeito(long long n) {
+    if (n < 0) {
+        return false;
+    }
+    long long r = round(sqrt(n));
+    return (r * r == n);
+}
 
-int fibo(int x) {
-    fibonot[x] = fibo(x - 1) + fibo(x - 2);
-    return fibonot[x];
+bool ehFibonacci(int n) {
+    if (n == 1) {
+        return true;
+    }
+    return quadradoPerfeito(5LL * n * n + 4) || quadradoPerfeito(5LL * n * n - 4);
 }
 
 int main() {
     int k;
+    cin >> k;
 
-    while (cin >> k) {
-        cout << fibo(k) << endl;
+    int cf = 0;
+    int num = 1;
+
+    while (true) {
+        if (!ehFibonacci(num)) {
+            cf++;
+            if (cf == k) {
+                cout << num << endl;
+                break;
+            }
+        }
+        num++;
     }
+
+    return 0;
 }

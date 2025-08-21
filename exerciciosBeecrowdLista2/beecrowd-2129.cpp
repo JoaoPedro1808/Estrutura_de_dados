@@ -4,10 +4,12 @@
 #include <cmath>
 #include <cctype>
 
+using namespace std;
+
 int main() {
     int n, instancia = 1;
 
-    while (std::cin >> n) {
+    while (cin >> n) {
         long long produto = 1;
         int expoente_de_5 = 0;
         
@@ -35,9 +37,9 @@ int main() {
             produto = (produto * ultimos_digitos_potencia_2[expoente_de_5 % 4 + 1]) % 10;
         }
         
-        std::cout << "Instancia " << instancia++ << std::endl;
-        std::cout << produto << std::endl;
-        std::cout << std::endl;
+        cout << "Instancia " << instancia++ << endl;
+        cout << produto << endl;
+        cout << endl;
     }
 
     return 0;
