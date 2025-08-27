@@ -6,41 +6,43 @@
 
 using namespace std;
 
+int p2(int k) {
+    int p2c[] = {6, 2, 4, 8};
+
+    if (k == 0) {
+        return 1;
+    }
+
+    return p2c[k % 4];
+}
+
 int main() {
-    int n, instancia = 1;
+    int n, inst = 1;
 
     while (cin >> n) {
-        long long produto = 1;
-        int expoente_de_5 = 0;
-        
-        for (int i = 5; i <= n; i *= 5) {
-            expoente_de_5 += n / i;
-        }
+        int e2 = 0, e5 = 0;
+        int p = 1;
 
         for (int i = 1; i <= n; i++) {
             int temp = i;
-
+            while (temp % 2 == 0) {
+                temp /= 2;
+                e2++;
+            }
             while (temp % 5 == 0) {
                 temp /= 5;
+                e5++;
             }
+            p = (p * temp) % 10;
+        }
 
-            while (temp % 2 == 0 && expoente_de_5 > 0) {
-                temp /= 2;
-                expoente_de_5--;
-            }
-            
-            produto = (produto * temp) % 10;
+        int d = e2 - e5;
+        if (d > 0) {
+            p = (p * p2(diff)) % 10;
         }
-        
-        if (expoente_de_5 > 0) {
-             int ultimos_digitos_potencia_2[] = {1, 2, 4, 8, 6};
-            produto = (produto * ultimos_digitos_potencia_2[expoente_de_5 % 4 + 1]) % 10;
-        }
-        
-        cout << "Instancia " << instancia++ << endl;
-        cout << produto << endl;
-        cout << endl;
+
+        cout << "Instancia " << inst++ << endl;
+        cout << p << endl << endl;
     }
-
     return 0;
 }
