@@ -12,32 +12,46 @@ class No {
 public:
     int dado;
     No *proximo;
+    No *anterior;
     No(int dado, No*p = nullptr) {
         this->dado = dado;
         this->proximo = p;
+        this->anterior = nullptr;
     }
 };
 
-class ListaEncadeado {
+class ListaDuplicada {
 public:
-    No * head;
-    ListaEncadeado() {
+    No *head;
+    ListaDuplicada() {
         this->head = nullptr;
     }
-    void add(int info) {
+    void addInicio(int info) {
+        No *novo = new No(info);
+        if (head == nullptr) {
+            head = novo;
+        }
+        else {
+            novo->proximo = head;
+            head->anterior = novo;
+            head = novo;
+        }
+    }
+    void addFim(int info) {
         No *novo = new No(info);
         if (head == nullptr) {
             head = novo;
         }
         else {
             No *p = head;
-            while(p->proximo != nullptr) {
+            while (p->proximo != nullptr) {
                 p = p->proximo;
             }
             p->proximo = novo;
+            novo->anterior = p;
         }
     }
-    void remove(int dadoRemover) {
+    void remove(int info) {
         No *p = head;
         No *anterior = nullptr;
 
@@ -45,13 +59,13 @@ public:
             return;
         }
 
-        if (head->dado == dadoRemover) {
+        if (p->dado == info) {
             head = head->proximo;
             delete p;
             return;
         }
 
-        while (p != nullptr && p->dado != dadoRemover) {
+        while (p != nullptr && p->dado != info) {
             anterior = p;
             p = p->proximo;
         }
@@ -61,9 +75,8 @@ public:
         }
 
         anterior->proximo = p->proximo;
-        delete p;                        
+        delete p;  
     }
-
     bool buscar(int info) {
         No *p = head;
         while (p != nullptr) {
@@ -85,30 +98,31 @@ public:
     }
 };
 
-int main(){
-    ListaEncadeado lista;
+int main() {
+    ListaDuplicada lista;
 
-    lista.add(10);
-    lista.add(20);
-    lista.add(30);
+    lista.addInicio(3);
+    lista.addInicio(2);
+    lista.addInicio(1);
+    lista.addFim(4);
+    lista.addFim(5);
+    lista.addFim(6);
 
     lista.imprimir();
 
-    lista.remove(20);
+    lista.remove(6);
 
     lista.imprimir();
 
     int b;
-
-    while cin >> b {
+    
+    while (cin >> b) {
         if (lista.buscar(b)) {
-            cout << "Elemento encontrado" << endl;
-        }
-        else {
+            cout << "Elemento encontardo" << endl;
+        } else {
             cout << "Elemento não encontrado" << endl;
         }
-        cin >> b;
     }
 
     return 0;
-};
+}
