@@ -64,6 +64,32 @@ public:
         delete p;                        
     }
 
+    void removerDuplicadas() {
+        No *p = head;
+
+        if (head == nullptr) {
+            return;
+        }
+
+        while (p != nullptr) {
+            No *anterior = p; 
+            No *q = p->proximo;
+
+            while (q != nullptr) {
+                if (q->dado == p->dado) {
+                    anterior->proximo = q->proximo;
+                    delete q;
+                    q = anterior->proximo;
+                }
+                else {
+                    anterior = q;
+                    q = q->proximo;
+                }
+            }
+            p = p->proximo;
+        }
+    }
+
     bool buscar(int info) {
         No *p = head;
         while (p != nullptr) {
@@ -91,24 +117,15 @@ int main(){
     lista.add(10);
     lista.add(20);
     lista.add(30);
+    lista.add(10);
+    lista.add(15);
+    lista.add(40);
 
     lista.imprimir();
 
-    lista.remove(20);
+    lista.removerDuplicadas();
 
     lista.imprimir();
-
-    int b;
-
-    while cin >> b {
-        if (lista.buscar(b)) {
-            cout << "Elemento encontrado" << endl;
-        }
-        else {
-            cout << "Elemento não encontrado" << endl;
-        }
-        cin >> b;
-    }
 
     return 0;
 };

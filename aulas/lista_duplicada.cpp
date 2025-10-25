@@ -26,6 +26,7 @@ public:
     ListaDuplicada() {
         this->head = nullptr;
     }
+
     void addInicio(int info) {
         No *novo = new No(info);
         if (head == nullptr) {
@@ -37,6 +38,7 @@ public:
             head = novo;
         }
     }
+
     void addFim(int info) {
         No *novo = new No(info);
         if (head == nullptr) {
@@ -51,6 +53,7 @@ public:
             novo->anterior = p;
         }
     }
+
     void remove(int info) {
         No *p = head;
         No *anterior = nullptr;
@@ -77,6 +80,33 @@ public:
         anterior->proximo = p->proximo;
         delete p;  
     }
+
+    void removerDuplicadas() {
+        No *p = head;
+
+        if (head == nullptr) {
+            return;
+        }
+
+        while (p != nullptr) {
+            No *anterior = p; 
+            No *q = p->proximo;
+
+            while (q != nullptr) {
+                if (q->dado == p->dado) {
+                    anterior->proximo = q->proximo;
+                    delete q;
+                    q = anterior->proximo;
+                }
+                else {
+                    anterior = q;
+                    q = q->proximo;
+                }
+            }
+            p = p->proximo;
+        }
+    }
+
     bool buscar(int info) {
         No *p = head;
         while (p != nullptr) {
@@ -104,25 +134,16 @@ int main() {
     lista.addInicio(3);
     lista.addInicio(2);
     lista.addInicio(1);
+    lista.addInicio(1);
     lista.addFim(4);
     lista.addFim(5);
     lista.addFim(6);
 
     lista.imprimir();
 
-    lista.remove(6);
+    lista.removerDuplicadas();
 
     lista.imprimir();
-
-    int b;
-    
-    while (cin >> b) {
-        if (lista.buscar(b)) {
-            cout << "Elemento encontardo" << endl;
-        } else {
-            cout << "Elemento não encontrado" << endl;
-        }
-    }
 
     return 0;
 }

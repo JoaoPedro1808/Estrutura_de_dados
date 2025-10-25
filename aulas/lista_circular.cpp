@@ -61,6 +61,7 @@ public:
             head->anterior = novo;
         }
     }
+
     void remove(int info) {
         No *p = head->proximo;
 
@@ -74,6 +75,36 @@ public:
             delete p;
         }
     }
+    
+    void removerDuplicadas() {
+        No *p = head;
+
+        while (true) {
+            No *anterior = p; 
+            No *q = p->proximo;
+
+            while (q != p) {
+                if (q->dado == p->dado) {
+                    anterior->proximo = q->proximo;
+                    if (q == head) {
+                        head = q->proximo;
+                    }
+                    delete q;
+                    q = anterior->proximo;
+                }
+                else {
+                    anterior = q;
+                    q = q->proximo;
+                }
+            }
+            p = p->proximo;
+
+            if (p == head) {
+                break;
+            }
+        }
+    }
+
     bool buscar(int info) {
         if (head == nullptr) {
             return false;
@@ -118,24 +149,17 @@ int main() {
     lista.addInicio(3);
     lista.addInicio(2);
     lista.addInicio(1);
+    lista.addInicio(1);
     lista.addFim(4);
     lista.addFim(5);
     lista.addFim(6);
 
     lista.imprimir();
 
-    lista.remove(6);
+    lista.removerDuplicadas();
 
     lista.imprimir();
 
-    int b;
+    return 0;
 
-    while (cin >> b) {
-        if (lista.buscar(b)) {
-            cout << "Elemento encontardo" << endl;
-        }
-        else {
-            cout << "Elemento não encontrado" << endl;
-        }
-    }
 }
