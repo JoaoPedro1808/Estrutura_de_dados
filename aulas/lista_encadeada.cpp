@@ -130,28 +130,42 @@ public:
         }
         cout << endl;
     }
+
+    void selectionSort() {
+        No *p = head;
+
+        if (head ==nullptr) {
+            return;
+        }
+
+        while (p != nullptr) {
+            No *min = p;
+
+            for (No *q = p->proximo; q != nullptr; q = q->proximo) {
+                if (q->dado < min->dado) {
+                    min = q;
+                }
+            }
+            int t = p->dado;
+            p->dado = min->dado;
+            min->dado = t;
+
+            p = p->proximo;
+        }
+    }
 };
 
 int main(){
     ListaEncadeado lista1;
-    lista1.add(10);
-    lista1.add(20);
-    lista1.add(30);
-    lista1.add(10);
-    lista1.add(15);
-    lista1.add(40);
+    lista1.add(2);
+    lista1.add(1);
+    lista1.add(3);
+    lista1.add(5);
+    lista1.add(4);
 
     lista1.imprimir();
 
-    ListaEncadeado lista2;
-    lista2.add(5);
-    lista2.add(15);
-    lista2.add(20);
-    lista2.add(35);
-
-    lista2.imprimir();
-
-    lista1.mesclarListas(lista1.head, lista2.head);
+    lista1.selectionSort();
 
     lista1.imprimir();
 
