@@ -24,6 +24,7 @@ public:
     ListaEncadeado() {
         this->head = nullptr;
     }
+
     void add(int info) {
         No *novo = new No(info);
         if (head == nullptr) {
@@ -37,6 +38,26 @@ public:
             p->proximo = novo;
         }
     }
+
+    void mesclarListas(No* head1, No* head2) {
+        No *p = head1;
+        No *q = head2;
+
+        if (head1 == nullptr) {
+            return;
+        }
+
+        if (head2 == nullptr) {
+            return;
+        }
+
+        while (p->proximo != nullptr) {
+            p = p->proximo;
+        }
+
+        p->proximo = head2;
+    }
+
     void remove(int dadoRemover) {
         No *p = head;
         No *anterior = nullptr;
@@ -112,20 +133,27 @@ public:
 };
 
 int main(){
-    ListaEncadeado lista;
+    ListaEncadeado lista1;
+    lista1.add(10);
+    lista1.add(20);
+    lista1.add(30);
+    lista1.add(10);
+    lista1.add(15);
+    lista1.add(40);
 
-    lista.add(10);
-    lista.add(20);
-    lista.add(30);
-    lista.add(10);
-    lista.add(15);
-    lista.add(40);
+    lista1.imprimir();
 
-    lista.imprimir();
+    ListaEncadeado lista2;
+    lista2.add(5);
+    lista2.add(15);
+    lista2.add(20);
+    lista2.add(35);
 
-    lista.removerDuplicadas();
+    lista2.imprimir();
 
-    lista.imprimir();
+    lista1.mesclarListas(lista1.head, lista2.head);
+
+    lista1.imprimir();
 
     return 0;
 };
