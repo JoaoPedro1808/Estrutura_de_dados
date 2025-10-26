@@ -211,6 +211,24 @@ public:
         delete p;
     }
 
+    void listaDuplicada() {
+        No *p = head;
+
+        if (head == nullptr) {
+            return;
+        }
+
+        while (p != nullptr) {
+            No *novo = new No(p->dado);
+            No *q = p->proximo;
+
+            p->proximo = novo;
+            novo->proximo = q;
+
+            p = q;
+        }
+    }
+
     void selectionSort() {
         No *p = head;
 
@@ -245,7 +263,7 @@ int main(){
 
     lista1.imprimir();
 
-    lista1.removerN(1);
+    lista1.listaDuplicada();
 
     lista1.imprimir();
 
