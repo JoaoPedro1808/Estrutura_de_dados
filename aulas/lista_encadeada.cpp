@@ -131,6 +131,21 @@ public:
         cout << endl;
     }
 
+    void count() {
+        No *p = head;
+        int c = 0;
+
+        if (head == nullptr) {
+            return;
+        }
+
+        while (p != nullptr) {
+            c++;
+            p = p->proximo;
+        }
+        cout << c << endl;
+    }
+
     void selectionSort() {
         No *p = head;
 
@@ -165,9 +180,7 @@ int main(){
 
     lista1.imprimir();
 
-    lista1.selectionSort();
-
-    lista1.imprimir();
+    lista1.count();
 
     return 0;
 };
