@@ -182,6 +182,35 @@ public:
         }
     }
 
+    void removerN (int info) {
+        No *p = head;
+        No *anterior = nullptr;
+        int c = 0;
+
+        if (head == nullptr) {
+            return;
+        }
+
+        if (info - 1 == 0) {
+            head = head->proximo;
+            delete p;
+            return;        
+        }
+
+        while (p != nullptr) {
+            anterior = p;
+            p = p->proximo;
+            c++;
+        }
+
+        if (p == nullptr) {
+            return;
+        }
+
+        anterior->proximo = p->proximo;
+        delete p;
+    }
+
     void selectionSort() {
         No *p = head;
 
@@ -216,7 +245,9 @@ int main(){
 
     lista1.imprimir();
 
-    lista1.encontrar(1);
+    lista1.removerN(1);
+
+    lista1.imprimir();
 
     return 0;
 };
