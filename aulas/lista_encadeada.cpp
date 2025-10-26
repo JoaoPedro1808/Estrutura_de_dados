@@ -146,6 +146,24 @@ public:
         cout << c << endl;
     }
 
+    void inverter() {
+        No *p = this->head;
+        No *anterior = nullptr;
+        No *proximo = nullptr;
+
+        if (head == nullptr) {
+            return;
+        }
+
+        while (p != nullptr) {
+            proximo = p->proximo;
+            p->proximo = anterior;
+            anterior = p;
+            p = proximo;
+        }
+        this->head = anterior;
+    }
+
     void selectionSort() {
         No *p = head;
 
@@ -178,9 +196,13 @@ int main(){
     lista1.add(5);
     lista1.add(4);
 
+    lista1.selectionSort();
+
     lista1.imprimir();
 
-    lista1.count();
+    lista1.inverter();
+
+    lista1.imprimir();
 
     return 0;
 };
