@@ -164,6 +164,24 @@ public:
         this->head = anterior;
     }
 
+    void encontrar(int info) {
+        No *p = head;
+        int c = 0;
+
+        if (head == nullptr) {
+            return;
+        }
+
+        while (p != nullptr) {
+            if (c == info - 1) {
+                cout << p->dado << endl;
+                return;
+            }
+            c++;
+            p = p->proximo;
+        }
+    }
+
     void selectionSort() {
         No *p = head;
 
@@ -190,19 +208,15 @@ public:
 
 int main(){
     ListaEncadeado lista1;
-    lista1.add(2);
-    lista1.add(1);
-    lista1.add(3);
-    lista1.add(5);
-    lista1.add(4);
-
-    lista1.selectionSort();
+    lista1.add(20);
+    lista1.add(10);
+    lista1.add(30);
+    lista1.add(50);
+    lista1.add(40);
 
     lista1.imprimir();
 
-    lista1.inverter();
-
-    lista1.imprimir();
+    lista1.encontrar(1);
 
     return 0;
 };
