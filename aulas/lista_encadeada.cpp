@@ -40,10 +40,10 @@ public:
     }
 
     void mesclarListas(No* head1, No* head2) {
-        No *p = head1;
-        No *q = head2;
+        this->head = head1;
 
         if (head1 == nullptr) {
+            this->head = head2;
             return;
         }
 
@@ -51,6 +51,7 @@ public:
             return;
         }
 
+        No *p = head1;
         while (p->proximo != nullptr) {
             p = p->proximo;
         }
@@ -229,6 +230,23 @@ public:
         }
     }
 
+    void inverteRecursivo(No *p) {
+        if (p == nullptr) {
+            return;
+        }
+
+        if (p->proximo == nullptr) {
+            head = p;
+            return;
+        }
+
+        inverteRecursivo(p->proximo);
+
+        No *q = p->proximo;
+        q->proximo = p;
+        p->proximo = nullptr;
+    }
+
     void selectionSort() {
         No *p = head;
 
@@ -255,15 +273,15 @@ public:
 
 int main(){
     ListaEncadeado lista1;
-    lista1.add(20);
-    lista1.add(10);
-    lista1.add(30);
-    lista1.add(50);
-    lista1.add(40);
+    lista1.add(1);
+    lista1.add(2);
+    lista1.add(3);
+    lista1.add(5);
+    lista1.add(4);
 
     lista1.imprimir();
 
-    lista1.listaDuplicada();
+    lista1.inverteRecursivo(lista1.head);
 
     lista1.imprimir();
 
