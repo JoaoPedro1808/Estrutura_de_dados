@@ -8,6 +8,7 @@
 
 using namespace std;
 
+// Definindo a classe No
 class No {
 public:
     int dado;
@@ -27,6 +28,7 @@ public:
 
     void add(int info) {
         No *novo = new No(info);
+
         if (head == nullptr) {
             head = novo;
         }
@@ -83,7 +85,7 @@ public:
         }
 
         anterior->proximo = p->proximo;
-        delete p;                        
+        delete p; 
     }
 
     void removerDuplicadas() {
@@ -94,7 +96,7 @@ public:
         }
 
         while (p != nullptr) {
-            No *anterior = p; 
+            No *anterior = p;
             No *q = p->proximo;
 
             while (q != nullptr) {
