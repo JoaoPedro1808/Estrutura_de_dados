@@ -358,6 +358,41 @@ public:
         return false;
     }
 
+    void metade(ListaEncadeado& lista1, ListaEncadeado& lista2) {
+        No *p = head;
+        No *q = head;
+        No *anterior = nullptr;
+
+        if (head == nullptr) {
+            lista1.head = nullptr;
+            lista2.head = nullptr;
+            return;
+        }
+
+        if (head->proximo == nullptr) {
+            lista1.head = head;
+            lista2.head = nullptr;
+            return;
+        }
+
+        while(q != nullptr && q->proximo != nullptr) {
+            anterior = p;
+            p = p->proximo;
+            q = q->proximo->proximo;
+        }
+
+        if (anterior != nullptr) {
+            anterior->proximo = nullptr;
+        }
+
+        lista1.head = head;
+        lista2.head = p;
+
+        this->head = nullptr;
+
+        return;
+    }
+        
     void selectionSort() {
         No *p = head;
 
@@ -389,14 +424,17 @@ int main(){
     lista1.add(3);
     lista1.add(5);
     lista1.add(4);
+    lista1.add(8);
 
     lista1.imprimir();
 
-    if (lista1.ciclo()) {
-        cout << "A lista é um ciclo." << endl;
-    } else {
-        cout << "A lista não é ciclo." << endl;
-    }
+    ListaEncadeado metade1;
+    ListaEncadeado metade2;
+
+    lista1.metade(metade1, metade2);
+
+    metade1.imprimir();
+    metade2.imprimir();
 
     return 0;
 };
