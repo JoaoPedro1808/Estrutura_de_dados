@@ -249,7 +249,6 @@ public:
         p->proximo = nullptr;
     }
 
-    // Colocar no arquivo de lista encadeada comentada
     bool palindromo() {
         No *p = head->proximo;
         No *q = head->proximo;
@@ -302,7 +301,6 @@ public:
         return palindromo;
     }
 
-    // Colocar no arquivo de lista encadeada comentada
     void removerPosicoes(vector<int> info) {
         if (head == nullptr || info.size() == 0) {
             return;
@@ -342,7 +340,6 @@ public:
         }
     }
 
-    // Colocar no arquivo de lista encadeada comentada
     bool ciclo() {
         No *p = head;
         No *q = head;

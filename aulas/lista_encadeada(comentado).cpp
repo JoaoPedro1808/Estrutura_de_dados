@@ -301,6 +301,169 @@ public:
         p->proximo = nullptr; // Define o próximo do nó atual como nullptr
     }
 
+    // Determina se a lista é um palindromo, ou seja, se lê o mesmo de frente para trás e de trás para frente
+    bool palindromo() {
+        No *p = head->proximo; // Ponteiro auxiliar para percorrer a lista
+        No *q = head->proximo; // Ponteiro auxiliar para percorrer a lista
+
+        // Se a lista estiver vazia, é considerado um palindromo
+        if (head == nullptr) {
+            return true;
+        }
+
+        // Percorre a lista para encontrar o meio da lista
+        while (q != nullptr && q->proximo != nullptr) {
+            p = p->proximo; // Avança o ponteiro p em um nó
+            q = q->proximo->proximo; // Avança o ponteiro q em dois nós
+        }
+
+        No *anterior = nullptr; // Ponteiro para o nó anterior ao nó atual
+        No *atual = p; // Ponteiro para o nó atual
+        No *proximo = nullptr; // Ponteiro para o próximo nó após o nó atual
+
+        // Inverte a segunda metade da lista
+        while (p != nullptr) {
+            proximo = p->proximo; // Armazena o próximo nó
+            p->proximo = anterior; // Inverte o ponteiro do nó atual para o nó anterior
+            anterior = atual; // Atualiza o nó anterior para o nó atual
+            p = proximo; // Avança para o próximo nó
+        }
+
+        No *lista1 = head->proximo; // Ponteiro para o início da primeira metade da lista
+        No *lista2 = anterior; // Ponteiro para o início da segunda metade invertida da lista
+        
+        bool palindromo = true; // Variável para rastrear se a lista é um palindromo
+
+        // Compara os valores das duas metades da lista
+        while (lista2 != nullptr) {
+            // Se os valores forem diferentes, a lista não é um palindromo
+            if (lista1->dado != lista2->dado) {
+                palindromo = false; // Atualiza a variável para indicar que não é um palindromo
+                break;
+            }
+            lista1 = lista1->proximo; // Avança para o próximo nó na primeira metade
+            lista2 = lista2->proximo; // Avança para o próximo nó na segunda metade
+        }
+
+        anterior = nullptr; // Ponteiro para o nó anterior ao nó atual
+        atual = anterior; // Ponteiro para o nó atual
+        proximo = nullptr; // Ponteiro para o próximo nó após o nó atual
+
+        // Restaura a segunda metade da lista para sua ordem original
+        while (atual != nullptr) {
+            proximo = atual->proximo; // Armazena o próximo nó
+            atual->proximo = anterior; // Inverte o ponteiro do nó atual para o nó anterior
+            anterior = atual; // Atualiza o nó anterior para o nó atual
+            atual = proximo; // Avança para o próximo nó
+        }
+
+        return palindromo; // Retorna se a lista é um palindromo ou não
+    }
+
+    // Remove os nós nas posições declaradas na lista info, declarada como vetor
+    void removerPosicoes(vector<int> info) {
+        // Se a lista estiver vazia ou o vetor de posições estiver vazio, não há nada a remover
+        if (head == nullptr || info.size() == 0) {
+            return;
+        }
+
+        int posr = 0; // Contador para rastrear quantas posições já foram removidas
+
+        // Percorre o vetor de posições para remover os nós correspondentes
+        for (int i = 0; i < info.size(); i++) {
+            int pos = info[i] - posr; // Ajusta a posição considerando as remoções anteriores
+            No *p = head; // Ponterio auxiliar para percorrer a lista
+            No *anterior = nullptr; // Ponterio para o nó anterior ao nó atual
+            int c = 1; // Contador para rastrear a posição atual
+
+            // Se a lista estiver vazia ou a posição for inválida, não há nada a remover
+            if (head == nullptr || info[i] < 1 ) {
+                return;
+            }
+
+            // Se o nó a ser removido for o head
+            if (info[i] == 1) {
+                head = head->proximo; // Atualiza o head para o próximo nó
+                delete p; // Deleta o nó antigo
+                continue;        
+            }
+
+            // Percorre a lista para encontrar o nó na posição N, ou seja, pos
+            while (p != nullptr && c < pos) {
+                anterior = p; // A nova posição do nó anterior
+                p = p->proximo; // Avança para o próximo nó
+                c++; // Incrementa o contador
+            }
+
+            // Nó não encontrado
+            if (p == nullptr) {
+                continue;
+            }
+
+            anterior->proximo = p->proximo; // Pular o nó a ser removido na lista
+            delete p; // Deletar o nó
+            posr++; // Incrementa o contador de posições removidas
+        }
+    }
+
+    // Verifica se a lista possui um ciclo
+    bool ciclo() {
+        No *p = head; // Ponteiro auxiliar para percorrer a lista
+        No *q = head; // Ponteiro auxiliar para percorrer a lista
+
+        // Se a lista estiver vazia, não há ciclo
+        while (q != nullptr && q->proximo != nullptr) {
+            p = p->proximo; // Avança o ponteiro p em um nó
+            q = q->proximo->proximo; // Avança o ponteiro q em dois nós
+
+            // Se os ponteiros se encontrarem, há um ciclo na lista
+            if (p == q) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Função para separar a lista em duas metades, criando uma nova lista para cada metade
+    void metade(ListaEncadeado& lista1, ListaEncadeado& lista2) {
+        No *p = head; // Ponteiro auxiliar para percorrer a lista
+        No *q = head; // Ponteiro auxiliar para percorrer a lista
+        No *anterior = nullptr; // Ponteiro para o nó anterior ao nó atual
+
+        // Se a lista estiver vazia, ambas as listas resultantes serão vazias
+        if (head == nullptr) {
+            lista1.head = nullptr; 
+            lista2.head = nullptr;
+            return;
+        }
+
+        // Se a lista tiver apenas um nó, a primeira lista será esse nó e a segunda será vazia
+        if (head->proximo == nullptr) {
+            lista1.head = head;
+            lista2.head = nullptr;
+            return;
+        }
+
+        // Percorre a lista para encontrar o meio da lista
+        while(q != nullptr && q->proximo != nullptr) {
+            anterior = p; // Atualiza o nó anterior
+            p = p->proximo; // Avança para o próximo nó
+            q = q->proximo->proximo; // Avança o ponteiro q em dois nós
+        }
+
+        // Separa as duas metades da lista
+        if (anterior != nullptr) {
+            anterior->proximo = nullptr; // Define o próximo do nó anterior como nullptr, separando as duas metades
+        }
+
+        lista1.head = head; // A primeira lista começa do head original
+        lista2.head = p; // A segunda lista começa do meio da lista original
+
+        this->head = nullptr; // A lista original fica vazia
+
+        return;
+    }
+
     // Ordena a lista encadeada usando o algoritimo selection sort
     void selectionSort() {
         No *p = head; // Ponteiro auxiliar para percorrer a lista
