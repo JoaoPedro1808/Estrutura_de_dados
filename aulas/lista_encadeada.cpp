@@ -249,6 +249,7 @@ public:
         p->proximo = nullptr;
     }
 
+    // Colocar no arquivo de lista encadeada comentada
     bool palindromo() {
         No *p = head->proximo;
         No *q = head->proximo;
@@ -301,33 +302,44 @@ public:
         return palindromo;
     }
 
+    // Colocar no arquivo de lista encadeada comentada
     void removerPosicoes(vector<int> info) {
-        No *p = head;
-        No *anterior = nullptr;
-        int c = 0;
-
-        if (head == nullptr | info.size() == 0) {
+        if (head == nullptr || info.size() == 0) {
             return;
         }
 
-        if (info[0] - 1 == 0) {
-            head = head->proximo;
+        int posr = 0;
+
+        for (int i = 0; i < info.size(); i++) {
+            int pos = info[i] - posr;
+            No *p = head;
+            No *anterior = nullptr;
+            int c = 1;
+
+            if (head == nullptr || info[i] < 1 ) {
+                return;
+            }
+
+            if (info[i] == 1) {
+                head = head->proximo;
+                delete p;
+                continue;        
+            }
+
+            while (p != nullptr && c < pos) {
+                anterior = p;
+                p = p->proximo;
+                c++;
+            }
+
+            if (p == nullptr) {
+                continue;
+            }
+
+            anterior->proximo = p->proximo;
             delete p;
-            return;
+            posr++;
         }
-
-        while (p != nullptr) {
-            anterior = p;
-            p = p->proximo;
-            c++;
-        }
-
-        if (p == nullptr) {
-            return;
-        }
-
-        anterior->proximo = p->proximo;
-        delete p;
     }
 
     void selectionSort() {
@@ -364,7 +376,7 @@ int main(){
 
     lista1.imprimir();
 
-    lista1.removerN(3);
+    lista1.removerPosicoes({2,4});
 
     lista1.imprimir();
 
