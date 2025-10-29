@@ -188,19 +188,19 @@ public:
     void removerN (int info) {
         No *p = head;
         No *anterior = nullptr;
-        int c = 0;
+        int c = 1;
 
-        if (head == nullptr) {
+        if (head == nullptr || info < 1 ) {
             return;
         }
 
-        if (info - 1 == 0) {
+        if (info == 1) {
             head = head->proximo;
             delete p;
             return;        
         }
 
-        while (p != nullptr) {
+        while (p != nullptr && c < info) {
             anterior = p;
             p = p->proximo;
             c++;
@@ -301,6 +301,35 @@ public:
         return palindromo;
     }
 
+    void removerPosicoes(vector<int> info) {
+        No *p = head;
+        No *anterior = nullptr;
+        int c = 0;
+
+        if (head == nullptr | info.size() == 0) {
+            return;
+        }
+
+        if (info[0] - 1 == 0) {
+            head = head->proximo;
+            delete p;
+            return;
+        }
+
+        while (p != nullptr) {
+            anterior = p;
+            p = p->proximo;
+            c++;
+        }
+
+        if (p == nullptr) {
+            return;
+        }
+
+        anterior->proximo = p->proximo;
+        delete p;
+    }
+
     void selectionSort() {
         No *p = head;
 
@@ -335,11 +364,9 @@ int main(){
 
     lista1.imprimir();
 
-    if (lista1.palindromo()) {
-        cout << "A lista e um palindromo" << endl;
-    } else {
-        cout << "A lista não e um palindromo" << endl;
-    }
+    lista1.removerN(3);
+
+    lista1.imprimir();
 
     return 0;
 };

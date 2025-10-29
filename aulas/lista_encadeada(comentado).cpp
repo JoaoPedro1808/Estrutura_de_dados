@@ -230,22 +230,22 @@ public:
     void removerN (int info) {
         No *p = head; // Ponterio auxiliar para percorrer a lista
         No *anterior = nullptr; // Ponterio para o nó anterior ao nó atual
-        int c = 0; // Contador para rastrear a posição atual
+        int c = 1; // Contador para rastrear a posição atual
 
-        // Se a lista estiver vazia, não há nada a remover
-        if (head == nullptr) {
+        // Se a lista estiver vazia ou a posição for inválida, não há nada a remover
+        if (head == nullptr || info < 1) {
             return;
         }
 
         // Se o nó a ser removido for o head
-        if (info - 1 == 0) {
+        if (info == 1) {
             head = head->proximo; // Atualiza o head para o próximo nó
             delete p; // Deleta o nó antigo
             return;        
         }
 
-        // Percorre a lista para encontrar o nó na posição N
-        while (p != nullptr) {
+        // Percorre a lista para encontrar o nó na posição N, ou seja, info
+        while (p != nullptr && c < info) {
             anterior = p; // A nova posição do nó anterior
             p = p->proximo; // Avança para o próximo nó
             c++; // Incrementa o contador
