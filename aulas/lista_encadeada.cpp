@@ -249,6 +249,58 @@ public:
         p->proximo = nullptr;
     }
 
+    bool palindromo() {
+        No *p = head->proximo;
+        No *q = head->proximo;
+
+        if (head == nullptr) {
+            return true;
+        }
+
+        while (q != nullptr && q->proximo != nullptr) {
+            p = p->proximo;
+            q = q->proximo->proximo;
+        }
+
+        No *anterior = nullptr;
+        No *atual = p;
+        No *proximo = nullptr;
+
+        while (p != nullptr) {
+            proximo = p->proximo;
+            p->proximo = anterior;
+            anterior = atual;
+            p = proximo;
+        }
+
+        No *lista1 = head->proximo;
+        No *lista2 = anterior;
+        
+        bool palindromo = true;
+
+        while (lista2 != nullptr) {
+            if (lista1->dado != lista2->dado) {
+                palindromo = false;
+                break;
+            }
+            lista1 = lista1->proximo;
+            lista2 = lista2->proximo;
+        }
+
+        anterior = nullptr;
+        atual = anterior;
+        proximo = nullptr;
+
+        while (atual != nullptr) {
+            proximo = atual->proximo;
+            atual->proximo = anterior;
+            anterior = atual;
+            atual = proximo;
+        }
+
+        return palindromo;
+    }
+
     void selectionSort() {
         No *p = head;
 
@@ -283,9 +335,11 @@ int main(){
 
     lista1.imprimir();
 
-    lista1.inverteRecursivo(lista1.head);
-
-    lista1.imprimir();
+    if (lista1.palindromo()) {
+        cout << "A lista e um palindromo" << endl;
+    } else {
+        cout << "A lista não e um palindromo" << endl;
+    }
 
     return 0;
 };
