@@ -342,6 +342,22 @@ public:
         }
     }
 
+    // Colocar no arquivo de lista encadeada comentada
+    bool ciclo() {
+        No *p = head;
+        No *q = head;
+
+        while (q != nullptr && q->proximo != nullptr) {
+            p = p->proximo;
+            q = q->proximo->proximo;
+
+            if (p == q) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void selectionSort() {
         No *p = head;
 
@@ -376,9 +392,11 @@ int main(){
 
     lista1.imprimir();
 
-    lista1.removerPosicoes({2,4});
-
-    lista1.imprimir();
+    if (lista1.ciclo()) {
+        cout << "A lista é um ciclo." << endl;
+    } else {
+        cout << "A lista não é ciclo." << endl;
+    }
 
     return 0;
 };
