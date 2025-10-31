@@ -21,9 +21,11 @@ public:
 
 class ListaEncadeado {
 public:
-    No * head;
+    No *head;
+    No *tail;
     ListaEncadeado() {
         this->head = nullptr;
+        this->tail = nullptr;
     }
 
     void add(int info) {
@@ -31,13 +33,11 @@ public:
 
         if (head == nullptr) {
             head = novo;
+            tail = novo;
         }
         else {
-            No *p = head;
-            while(p->proximo != nullptr) {
-                p = p->proximo;
-            }
-            p->proximo = novo;
+            tail->proximo = novo;
+            tail = novo;
         }
     }
 
