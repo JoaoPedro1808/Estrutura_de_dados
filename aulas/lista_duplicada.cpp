@@ -41,11 +41,12 @@ public:
 
     void addFim(int info) {
         No *novo = new No(info);
+        No *p = head;
+
         if (head == nullptr) {
             head = novo;
         }
         else {
-            No *p = head;
             while (p->proximo != nullptr) {
                 p = p->proximo;
             }
@@ -64,6 +65,11 @@ public:
 
         if (p->dado == info) {
             head = head->proximo;
+
+            if (head != nullptr) {
+                head->anterior = nullptr;
+            }
+
             delete p;
             return;
         }
@@ -77,7 +83,13 @@ public:
             return;
         }
 
-        anterior->proximo = p->proximo;
+        if (p->anterior != nullptr) {
+            p->anterior->proximo = p->proximo;
+        }
+
+        if (p->proximo != nullptr) {
+            p->proximo->anterior = anterior;
+        }
         delete p;  
     }
 
@@ -134,14 +146,13 @@ int main() {
     lista.addInicio(3);
     lista.addInicio(2);
     lista.addInicio(1);
-    lista.addInicio(1);
     lista.addFim(4);
     lista.addFim(5);
     lista.addFim(6);
 
     lista.imprimir();
 
-    lista.removerDuplicadas();
+    lista.remove(1);
 
     lista.imprimir();
 

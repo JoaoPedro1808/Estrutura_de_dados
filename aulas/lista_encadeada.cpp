@@ -169,14 +169,14 @@ public:
 
     void encontrar(int info) {
         No *p = head;
-        int c = 0;
+        int c = 1;
 
         if (head == nullptr) {
             return;
         }
 
         while (p != nullptr) {
-            if (c == info - 1) {
+            if (c == info) {
                 cout << p->dado << endl;
                 return;
             }
