@@ -36,8 +36,8 @@ public:
 
         if (p != nullptr) {
             cout << p->dado << endl;
-            emOrdem(p->e);
-            emOrdem(p->d);
+            preOrdem(p->e);
+            preOrdem(p->d);
         }
     }
 
