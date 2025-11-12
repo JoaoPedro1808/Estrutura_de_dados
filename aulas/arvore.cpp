@@ -16,8 +16,7 @@ public:
 
 class Tree {
 public:
-
-    void emOrdem(No *p) {
+    void emOrdem(No *p) { // esquerda, raiz, direita
         if (p == nullptr) {
             return;
         }
@@ -29,7 +28,7 @@ public:
         }
     }
 
-    void preOrdem(No *p) {
+    void preOrdem(No *p) { // raiz, esquerda, direita
         if (p == nullptr) {
             return;
         }
@@ -41,7 +40,7 @@ public:
         }
     }
 
-    void posOrdem(No *p) {
+    void posOrdem(No *p) { // esquerda, direita, raiz
         if (p == nullptr) {
             return;
         }

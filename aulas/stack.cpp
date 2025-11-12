@@ -29,13 +29,13 @@ public:
         cout << endl;
     }
 
-    void push(int info) {
+    void push(int info) { //Insere um novo elemento no começo da lista.
         No *novo = new No(info, head);
 
         head = novo;
     }
 
-    void pop() {
+    void pop() { // Remove o elemento no topo da lista.
         No *p = head->proximo;
         No *t = head;
 
@@ -47,7 +47,7 @@ public:
         delete t;
     }
 
-    void top() {
+    void top() { // Vizualiza o elemnto no topo da lista.
         No *p = head;
 
         cout << p->dado << endl;

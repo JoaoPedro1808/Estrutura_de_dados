@@ -24,7 +24,7 @@ public:
         head->anterior = head;
     }
 
-    void enqueue(int info) {
+    void enqueue(int info) { // Insere um elemento no fim da fila.
         No* novo = new No(info);
 
         novo->proximo = head;
@@ -33,7 +33,7 @@ public:
         head->anterior = novo;
     }
 
-    void dequeue() {
+    void dequeue() { // Retira um elemento no começo da fila.
         if (head->proximo == head) {
             return;
         }
@@ -44,7 +44,7 @@ public:
         delete primeiro;
     }
 
-    void imprimir() {
+    void imprimir() { // Imprime a lista inteira
         No *p = head->proximo;
 
         while (p != head) {
@@ -55,14 +55,14 @@ public:
         cout << endl;
     }
 
-    void front() {
+    void front() { // Imprime o nó da frente.
         if (head->proximo == head) {
             return;
         }
         cout << head->proximo->dado << endl;
     }
 
-    void back() {
+    void back() { // Imprime o nó de trás.
         if (head->anterior == head) {
             return;
         }
