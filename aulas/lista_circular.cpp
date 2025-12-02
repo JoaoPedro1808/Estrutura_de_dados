@@ -44,6 +44,7 @@ public:
             head = novo;
         }
     }
+    
     void addFim(int info) {
         No *novo = new No(info);
 
